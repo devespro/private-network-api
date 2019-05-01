@@ -20,6 +20,7 @@ import pro.deves.privatenetwork.api.model.User;
 import pro.deves.privatenetwork.api.repository.RoleRepository;
 import pro.deves.privatenetwork.api.repository.UserRepository;
 import pro.deves.privatenetwork.api.security.jwt.JwtProvider;
+import pro.deves.privatenetwork.api.utils.Routes;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +30,7 @@ import java.util.Set;
  */
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/auth")
+@RequestMapping(Routes.REST_AUTH_PATH)
 @Slf4j
 public class AuthRestAPI {
 
@@ -52,7 +53,7 @@ public class AuthRestAPI {
         this.tokenProvider = tokenProvider;
     }
 
-    @PostMapping("/signin")
+    @PostMapping(Routes.SIGNIN_PATH)
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginData) {
         if (loginData.getUsername() == null || loginData.getPassword() == null) {
             return ResponseEntity.badRequest().build();
@@ -70,7 +71,7 @@ public class AuthRestAPI {
         return ResponseEntity.ok(new JwtResponse(generatedJwtToken, userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
-    @PostMapping("/signup")
+    @PostMapping(Routes.SIGNUP_PATH)
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest singupData) {
 
         if (userRepository.existsByUsername(singupData.getUsername())) {

@@ -7,7 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -47,10 +48,19 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
+    @Column(name = "DATE_OF_BIRTH")
+    private LocalDate dateOfBirth;
+
+    @Column(name = "STATUS")
+    private String status;
+
+    @Column(name = "LAST_LOGGED_IN")
+    private LocalDateTime lastLoggedIn;
+
     @Column(name = "ROLES")
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "USER_ROLES",
-                joinColumns = @JoinColumn(name = "USER_ID"),
+            joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
     )
     private Set<Role> roles = new HashSet<>();
