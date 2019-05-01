@@ -1,2 +1,2 @@
 # private-network
-A private network web application
+A REST API for a private network web application
